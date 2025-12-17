@@ -28,8 +28,16 @@ async function sendVerificationEmail(email, otp) {
     console.log("error occured : while sendind verification code :", error);
   }
 }
-OTPSchema.pre("save", async function (next) {
-  await sendVerificationEmail(this.email, this.otp);
-  next();
+// OTPSchema.pre("save", async function () {
+//   await sendVerificationEmail(this.email, this.otp);
+//   next();
+// });
+
+//chat gpt
+// this.isNow means this document is create first time
+OTPSchema.pre("save", async function () {
+  if (this.isNew) {
+    await sendVerificationEmail(this.email, this.otp);
+  }
 });
 module.exports = mongoose.model("OTP", OTPSchema);

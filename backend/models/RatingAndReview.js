@@ -1,18 +1,22 @@
 const mongoose = require("mongoose");
-const { useReducer } = require("react");
 
 const ratingAndReviewSchema = new mongoose.Schema({
   rating: {
-    type: number,
+    type: Number,
   },
   review: {
-    type: string,
+    type: String,
   },
-  user: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Course",
+    index: true,
+  },
 });
 module.exports = mongoose.model("RatingAndReview", ratingAndReviewSchema);

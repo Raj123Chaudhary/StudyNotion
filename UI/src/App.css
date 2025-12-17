@@ -1,0 +1,53 @@
+/* body {
+     color: white;
+} */
+
+.bg_home {
+     background-image: url(../src/assets/Images/bghome.svg);
+}
+
+.white_shadow {
+     /* border: 1px solid black; */
+     box-shadow: 20px 20px white;
+}
+
+.yellow_shadow {
+     box-shadow: 10px 10px rgb(211, 211, 29);
+}
+
+.blue_shadow {
+     box-shadow: -5px -5px 20px rgb(80, 189, 194);
+}
+
+.sun_shadow {
+
+     box-shadow:
+          0 0 40px rgba(255, 200, 80, 0.6),
+          /* glow */
+          0 20px 40px rgba(0, 0, 0, 0.6);
+     /* depth */
+}
+
+.codeBlock_glow {
+     background: radial-gradient(circle at center,
+               rgba(255, 230, 150, 0.45) 0%,
+               rgba(255, 210, 120, 0.25) 30%,
+               rgba(255, 180, 90, 0.12) 55%,
+               rgba(20, 20, 20, 0.95) 85%);
+}
+
+.sun_shadow2 {
+     box-shadow:
+          0 0 40px rgba(120, 200, 255, 0.45),
+          /* sky blue glow */
+          0 20px 40px rgba(0, 0, 0, 0.6);
+     /* depth */
+}
+
+.codeBlock_glow2 {
+     background: radial-gradient(circle at center,
+               rgba(180, 225, 255, 0.45) 0%,
+               rgba(140, 200, 255, 0.28) 30%,
+               rgba(100, 170, 230, 0.14) 55%,
+               rgba(15, 25, 35, 0.95) 85%);
+}

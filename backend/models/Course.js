@@ -11,7 +11,7 @@ const courseSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  whatWillYouLearn: {
+  whatYouWillLearn: {
     type: String,
   },
   instructor: {
@@ -19,9 +19,16 @@ const courseSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  tag: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Tag",
+    ref: "Category",
+  },
+  tag: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
   },
   thumbnail: {
     type: String,
@@ -35,8 +42,16 @@ const courseSchema = new mongoose.Schema({
   ratingAndReview: [
     {
       type: mongoose.Schema.Types.ObjectId,
+      ref:"RatingAndReview"
     },
   ],
+  status: {
+    type: String,
+    enum: ["Draft", "Published"],
+  },
+  instructions: {
+    type: [String],
+  },
   studentsEnrolled: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -3,6 +3,7 @@ const OTP = require("../models/OTP");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Profile = require("../models/Profile");
 require("dotenv").config();
 // sending otp
 exports.sendOTP = async (req, res) => {
@@ -36,11 +37,13 @@ exports.sendOTP = async (req, res) => {
     }
     // create a object to save in db
     const otpPayload = new OTP({ email, otp });
+    console.log("otpPayload: ", otpPayload);
     const response = await otpPayload.save();
     console.log("response: ", response);
     return res.status(200).json({
       success: true,
       message: "otp saved successfully",
+      otp: otp,
     });
   } catch (error) {
     console.log("Error Occurred , While sending the OTP", error);
@@ -76,11 +79,12 @@ exports.signUp = async (req, res) => {
       !contactNumber ||
       !otp
     ) {
-      return res.status().json({
+      return res.status(404).json({
         success: false,
         message: "All fields are required",
       });
     }
+    console.log("otp:", otp);
     // 2 password match kro pass confirm pass
     // check user already exist or not
     if (password !== confirmPassword) {
@@ -100,17 +104,20 @@ exports.signUp = async (req, res) => {
     }
     //find most recent otp stored for the user
     //because otp expire hone se pehle kahi otp doucement save ho skte h
-    const recentOtp = await OTP.find({ email }).sort({ createAt: -1 }).limit(1);
-    console.log("recentOtp: ", recentOtp);
+    const recentOtp = await OTP.findOne({ email })
+      .sort({ createAt: -1 })
+      .limit(1);
+    console.log("recentOtp: ", recentOtp.otp);
     // validate otp
-    if (recentOtp.lenght == 0) {
+    if (!recentOtp) {
       //OTP not found
       return res.status(400).json({
         success: false,
         message: "otp not found",
       });
-    } else if (otp !== recentOtp) {
-      return res.statuc(400).json({
+    } else if (otp != recentOtp.otp) {
+      console.log("OTP RECENTOTP", otp, recentOtp.otp);
+      return res.status(400).json({
         success: false,
         message: "Invalid OTP",
       });
@@ -129,7 +136,7 @@ exports.signUp = async (req, res) => {
     const user = await User.create({
       firstName,
       lastName,
-      password,
+      password: hashedPassword,
       email,
       contactNumber,
       additionalDetail: profileDetails._id,
@@ -145,7 +152,7 @@ exports.signUp = async (req, res) => {
     console.log("error occured while signUp : ", error);
     return res.status(500).json({
       success: false,
-      message: "error occuredd while signup",
+      message: "error occurred while signup",
     });
   }
 };
@@ -175,12 +182,14 @@ exports.login = async (req, res) => {
     //matched the password
 
     const hashedPassword = userPresent.password;
+    // console.log("hashed pass: ", hashedPassword);
+    // console.log("normal passward: ", password);
     const result = await bcrypt.compare(password, hashedPassword);
     if (result) {
       // generate jsonwebtoken
       const userPayload = {
         email: userPresent.email,
-        password: userPresent._id,
+        id: userPresent._id,
         accountType: userPresent.accountType,
       };
       const token = jwt.sign(userPayload, process.env.JWT_SECRET, {
@@ -190,7 +199,10 @@ exports.login = async (req, res) => {
       userPresent.password = password;
       const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        httpOnly: true,
+        secure: false,
       };
+      // console.log("tokenLogin:", token);
       //create cookie and send response
       res.cookie("token", token, options).status(200).json({
         success: true,

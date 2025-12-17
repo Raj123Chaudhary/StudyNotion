@@ -7,12 +7,14 @@ const User = require("../models/User");
 exports.auth = async (req, res, next) => {
   try {
     //extract token
+    // console.log("cookies", req.cookies.token);
+    // console.log("header", req.header("Authorization").split(" ")[1]);
     const token =
-      req.cookies.token ||
-      req.body.token ||
-      req.header("Authorization").replace("Bearer ", "");
+      req.cookies.token || req?.header("Authorization")?.split(" ")?.[1];
     //
     // if token is missing
+    // console.log("token", token);
+
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -22,7 +24,7 @@ exports.auth = async (req, res, next) => {
     //verify the token
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decode);
+
       // jo payload me data dalenge vo aa jayega for futhur verification
       req.user = decode;
       //I verified the token, now I will store the user info inside req so other functions can use it.”
@@ -36,7 +38,7 @@ exports.auth = async (req, res, next) => {
   } catch (error) {
     return res.status(401).json({
       success: false,
-      message: "something went wrong while validating auth",
+      message: error?.message || "something went wrong while validating auth",
     });
   }
 };
@@ -65,6 +67,8 @@ exports.isStudent = async (req, res, next) => {
 
 exports.isInstructor = async (req, res, next) => {
   try {
+    console.log("req.user.accountType: ", req.user.accountType);
+
     if (req.user.accountType !== "Instructor") {
       return res.status(403).json({
         success: false,
@@ -82,12 +86,14 @@ exports.isInstructor = async (req, res, next) => {
 };
 exports.isAdmin = async (req, res, next) => {
   try {
+    console.log("req.user.accountType: ", req.user.accountType);
     if (req.user.accountType !== "Admin") {
       return res.status(403).json({
         success: false,
         message: "This route is only for Admin",
       });
     }
+    next();
   } catch (error) {
     return res.status(500).json({
       success: false,
