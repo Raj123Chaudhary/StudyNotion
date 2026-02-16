@@ -1,3 +1,52 @@
+export const FooterLink1 = [
+  {
+    title: "Company",
+    links: [
+      { title: "Al", link: "/al" },
+      { title: "Cloud Computing", link: "/cloud-computing" },
+      { title: "Code Foundations", link: "/code-foundations" },
+      { title: "Computer Science", link: "/computer-science" },
+    ],
+  },
+  {
+    title: "Resource",
+    links: [
+      { title: "Bash", link: "/bash" },
+      { title: "C++", link: "/c++" },
+      { title: "C#", link: "/csharp" },
+      { title: "Go", link: "/go" },
+      { title: "HTML & CSS", link: "/html-css" },
+      { title: "Java", link: "/java" },
+      { title: "JavaScript", link: "/javascript" },
+      { title: "Kotlin", link: "/kotlin" },
+      { title: "PHP", link: "/php" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { title: "Career paths", link: "/career-paths" },
+      { title: "Career services", link: "/career-services" },
+      { title: "Interview prep", link: "/interview-prep" },
+    ],
+  },
+  {
+    title: "Plan",
+    links: [
+      { title: "Career paths", link: "/career-paths" },
+      { title: "Career services", link: "/career-services" },
+      { title: "Interview prep", link: "/interview-prep" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { title: "Career paths", link: "/career-paths" },
+      { title: "Career services", link: "/career-services" },
+      { title: "Interview prep", link: "/interview-prep" },
+    ],
+  },
+];
 export const FooterLink2 = [
   {
     title: "Subjects",
@@ -43,13 +92,16 @@ export const FooterLink2 = [
   {
     title: "Career building",
     links: [
-        {title: "Career paths", link: "/career-paths"},
-        {title: "Career services", link: "/career-services"},
-        {title: "Interview prep", link: "/interview-prep"},
-        {title: "Professional certification", link: "/professional-certification"},
-        {title: "-", link: "/hi"},
-        {title: "Full Catalog", link: "/full-catalog"},
-        {title: "Beta Content", link: "/beta-content"}
-    ]
-  }
+      { title: "Career paths", link: "/career-paths" },
+      { title: "Career services", link: "/career-services" },
+      { title: "Interview prep", link: "/interview-prep" },
+      {
+        title: "Professional certification",
+        link: "/professional-certification",
+      },
+      { title: "-", link: "/hi" },
+      { title: "Full Catalog", link: "/full-catalog" },
+      { title: "Beta Content", link: "/beta-content" },
+    ],
+  },
 ];

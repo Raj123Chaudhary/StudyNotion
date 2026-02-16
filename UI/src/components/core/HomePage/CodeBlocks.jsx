@@ -14,12 +14,14 @@ const CodeBlocks = ({
   codeblock,
 }) => {
   const [key, setKey] = useState(0);
-  console.log(backgroundGradient);
+  // console.log(backgroundGradient);
   //   console.log(ctabtn1.active);
   return (
-    <div className={`flex my-20 ${position} justify-between gap-30`}>
+    <div
+      className={`flex my-20 ${position} lg:flex-row flex-col lg:justify-between justify-center items-center gap-30`}
+    >
       {/* {section1} */}
-      <div className={`flex flex-col  w-[55%]`}>
+      <div className={`flex flex-col  lg:w-[55%] w-[100%]`}>
         <div className="font-bold ">{heading}</div>
         <div className="text-[#838894] text-lg mt-5 font-bold">
           {subheading}
@@ -38,7 +40,7 @@ const CodeBlocks = ({
       </div>
       {/* section 2 */}
       <div
-        className={`flex w-[45%] ${
+        className={`flex lg:w-[45%] lg:flex-row w-[100%] ${
           backgroundGradient ? "sun_shadow" : "sun_shadow2"
         }    ${
           backgroundGradient ? "codeBlock_glow" : "codeBlock_glow2"

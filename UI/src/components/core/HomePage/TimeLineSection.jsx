@@ -28,12 +28,12 @@ const TimeLineSection = () => {
     },
   ];
   return (
-    <div className="mb-24">
-      <div className="flex items-center gap-[76px] ">
-        <div className="w-[45%]  flex flex-col ">
+    <div className="mb-24 ">
+      <div className="flex lg:flex-row flex-col items-center gap-[76px] ">
+        <div className="lg:w-[45%]  flex flex-col ">
           {timeline.map((element, index) => {
             return (
-              <div className="flex flex-col">
+              <div key={index} className="flex flex-col">
                 <div className="flex  flex-row gap-5" key={index}>
                   <div className="flex rounded-full  bg-white h-[60px] w-[60px] items-center justify-center">
                     <img src={element.logo} alt="logo" />

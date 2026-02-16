@@ -9,6 +9,7 @@ import TimeLineSection from "../components/core/HomePage/TimeLineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/Instructor";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
+import Footer from "./Footer";
 const Home = () => {
   return (
     <div>
@@ -18,21 +19,24 @@ const Home = () => {
           <div className=" mt-16 p-1 flex group hover:scale-95 transition-all duration-200  items-center rounded-full   bg-[#161D29] text-[#999DAA] ">
             <div className="flex items-center rounded-full group-hover:bg-[#000814]  transition-all duration-200 px-10 py-1">
               <p>Become an Instructor</p>
-              <MdOutlineKeyboardArrowRight />
+              <MdOutlineKeyboardArrowRight className="translate-y-0.5" />
               {/* <p>raj</p> */}
             </div>
           </div>
         </Link>
+        {/* heading   */}
         <div className="text-4xl text-center font-semibold mt-7">
           Empower your future with
           <HighlightText>Coding Skills</HighlightText>
         </div>
-        <div className="w-[90%] mt-4 text-lg text-center font-bold text-[#838894]">
+        {/* paragraph  */}
+        <div className="lg:w-[90%] mt-4 text-lg text-center font-bold text-[#838894]">
           With our online coding courses, you can learn at your own pace, from
           anywhere in the world, and get access to a wealth of resources,
           including hands-on projects, quizzes, and personalized feedback from
           instructors.
         </div>
+        {/* two buttons  */}
         <div className="flex mt-8 gap-7 ">
           <CTAButton linkTo={"/signup"} active={true}>
             Learn More
@@ -136,9 +140,9 @@ const Home = () => {
       </div>
       {/* section 2 */}
       <div className="bg-[#F9F9F9]  text-[#2C333F]">
-        <div className="bg_home h-[310px] ">
+        <div className="bg_home lg:h-[310px] h-[250px]  ">
           <div className="flex h-full flex-col items-center justify-end mx-auto w-11/12 max-w-[1260px]">
-            <div className="h-[110px]">
+            <div className="lg:h-[110px] h-[150px] ">
               <div className="flex gap-7 text-white">
                 <CTAButton linkTo={"/signup"} active={true}>
                   <div className="flex items-center gap-2">
@@ -154,12 +158,12 @@ const Home = () => {
           </div>
         </div>
         <div className=" mx-auto w-11/12 max-w-[1260px] flex flex-col justify-between items-center gap-7">
-          <div className="flex flex-row gap-5 mb-10 mt-[95px] justify-between ">
-            <div className="w-[45%] text-4xl font-semibold">
+          <div className="flex lg:flex-row flex-col gap-5 mb-10 mt-5 lg:mt-[95px] lg:justify-between ">
+            <div className="lg:w-[45%] w-full text-4xl font-semibold">
               Get the skills you need{" "}
               <HighlightText>for a job that is in demand.</HighlightText>
             </div>
-            <div className="flex flex-col gap-10 w-[40%] ">
+            <div className="flex flex-col gap-10 w-full lg:w-[40%] ">
               <div className="text-[16px] font-semibold">
                 The modern StudyNotion is the dictates its own terms. Today, to
                 be a competitive specialist requires more than professional
@@ -176,14 +180,15 @@ const Home = () => {
       </div>
 
       {/* section 3  */}
-      <div className="w-11/12 max-w-[1260px]  bg-[#000814] mx-auto justify-between items-center flex flex-col gap-8 bg- text-white">
-        <InstructorSection></InstructorSection>
+      <div className="w-11/12 max-w-[1260px]   bg-[#000814] mx-auto justify-between items-center flex flex-col gap-8 bg- text-white">
+        <InstructorSection />
         <h2 className="capitalize text-center text-4xl font-semibold">
           review form other learners
         </h2>
         {/* slider */}
       </div>
       {/* footer */}
+      <Footer />
     </div>
   );
 };

@@ -3,13 +3,55 @@ import "./App.css";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/common/Navbar";
+import Login from "./pages/Login";
+import VerifyEmail from "./pages/VerifyEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import OpenRoute from "./components/core/Auth/OpenRoute";
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
+import UpdatePassword from "./pages/UpdatePassword";
+// import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
 function App() {
   return (
     <div className="w-full  min-h-screen  bg-[#000814] flex flex-col">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route
+          path="/signup"
+          element={
+            <OpenRoute>
+              <SignUp />
+            </OpenRoute>
+          }
+        ></Route>
+        <Route
+          path="/login"
+          element={
+            <OpenRoute>
+              <Login />
+            </OpenRoute>
+          }
+        ></Route>
+        <Route path="/signup/verify-email" element={<VerifyEmail />}></Route>
+        <Route
+          path="/forgot-password"
+          element={
+            <OpenRoute>
+              <ForgotPassword />
+            </OpenRoute>
+          }
+        ></Route>
+        <Route
+          path="/update-password/:id"
+          element={
+            <OpenRoute>
+              <UpdatePassword />
+            </OpenRoute>
+          }
+        ></Route>
+        <Route path="/about" element={<About />}></Route>
+        {/* <Route path="/dashboard/my-profile" element={<MyProile />}></Route> */}
       </Routes>
     </div>
   );

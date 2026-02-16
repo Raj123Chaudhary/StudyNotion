@@ -1,16 +1,16 @@
-import signupImage from "../assets/Images/signup.webp";
 import Template from "../components/core/Auth/Template";
-const SignUp = () => {
+import LoginImage from "../assets/Images/login.webp";
+const Login = () => {
   return (
     <div>
       <Template
-        title={"Join the millions learning to code with StudyNotion for free"}
+        title={"Welcome Back"}
         description1={"Build skills for today, tomorrow, and beyond."}
         description2={"Education to future-proof your career."}
-        image={signupImage}
-        formType={"signup"}
+        image={LoginImage}
+        formType={"login"}
       ></Template>
     </div>
   );
 };
-export default SignUp;
+export default Login;

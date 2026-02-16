@@ -28,14 +28,14 @@ const ExploreMore = () => {
   };
   return (
     <div className="w-full mb-15">
-      <div className="flex flex-col w-full relative justify-center">
+      <div className="flex flex-col w-full relative justify-center ">
         <h2 className="text-4xl font-semibold text-center">
           Unlock the <HighlightText>Power of Code</HighlightText>{" "}
         </h2>
-        <div className="text-[16px] text-[#838894] font-semibold text-center mx-auto mt-2">
+        <p className="text-[16px] text-[#838894] font-semibold text-center mx-auto mt-2">
           Learn to Build Anything You Can Imagine
-        </div>
-        <div className="rounded-full bg-[#161D29]  border mx-auto flex justify-between gap-7 px-2 py-1 mt-5">
+        </p>
+        <div className="rounded-full bg-[#161D29] hidden  border mx-auto lg:flex justify-between gap-7 px-2 py-1 mt-5">
           {tabsName.map((element, index) => {
             return (
               <div
@@ -51,9 +51,9 @@ const ExploreMore = () => {
             );
           })}
         </div>
-        <div className="h-[150px]"></div>
+        <div className="xl:h-[150px] h-0 "></div>
         {/* card container */}
-        <div className="flex gap-12 absolute top-[69%] left-0">
+        <div className=" flex flex-row w-full lg:gap-12 gap:6 gap-y-6 flex-wrap justify-center relative mt-5  xl:absolute xl:top-[69%] xl:left-0">
           {coures.map((element, index) => {
             return (
               <Cards

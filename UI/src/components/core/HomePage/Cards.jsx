@@ -5,11 +5,12 @@ const Cards = ({ currentCard, element }) => {
   // console.log("element:", element);
   return (
     <div
-      className={`flex  ${
-        currentCard === element.heading
-          ? "bg-white text-black yellow_shadow "
-          : " bg-[#161D29]"
-      } flex-col`}
+      className={`flex  w-[80%]   
+    lg:w-[23rem] ${
+      currentCard === element.heading
+        ? "bg-white text-black yellow_shadow "
+        : " bg-[#161D29]"
+    } flex-col `}
     >
       <h1 className="text-xl mx-5  my-6 font-semibold ">{element.heading}</h1>
       <p className=" mx-5 font-semibold text-[17px] text-[#838894]">

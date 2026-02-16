@@ -12,6 +12,14 @@ exports.sendOTP = async (req, res) => {
     //fetch the email from req.body
     const { email } = req.body;
     //check email already exist of not
+    console.log(email);
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
+    // check this email user present or not
     const userPresent = await User.findOne({ email });
     if (userPresent) {
       return res.status(409).json({
@@ -65,7 +73,6 @@ exports.signUp = async (req, res) => {
       password,
       confirmPassword,
       accountType,
-      contactNumber,
       otp,
     } = req.body;
 
@@ -76,7 +83,6 @@ exports.signUp = async (req, res) => {
       !password ||
       !confirmPassword ||
       !email ||
-      !contactNumber ||
       !otp
     ) {
       return res.status(404).json({
@@ -138,7 +144,6 @@ exports.signUp = async (req, res) => {
       lastName,
       password: hashedPassword,
       email,
-      contactNumber,
       additionalDetail: profileDetails._id,
       accountType,
       image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
@@ -152,7 +157,7 @@ exports.signUp = async (req, res) => {
     console.log("error occured while signUp : ", error);
     return res.status(500).json({
       success: false,
-      message: "error occurred while signup",
+      message: error?.message || "error occurred while signup",
     });
   }
 };
@@ -164,8 +169,9 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
     //vaidation of data
     if (!email || !password) {
-      return res.status(403).json({
+      return res.status(400).json({
         success: false,
+        data: error.message,
         message: "All fields are required Plz fill carefully ",
       });
     }
@@ -174,9 +180,9 @@ exports.login = async (req, res) => {
       "additionalDetail"
     );
     if (!userPresent) {
-      return res.status(409).json({
+      return res.status(404).json({
         success: false,
-        message: "User not SignUP , Sign up first",
+        message: "User not found , Sign up first",
       });
     }
     //matched the password
@@ -213,7 +219,7 @@ exports.login = async (req, res) => {
     } else {
       return res.status(401).json({
         success: false,
-        message: "Password is incoorect",
+        message: "Invalid email or Password",
       });
     }
   } catch (error) {
