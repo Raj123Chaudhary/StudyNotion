@@ -51,7 +51,7 @@ function App() {
           }
         ></Route>
         <Route path="/about" element={<About />}></Route>
-        {/* <Route path="/dashboard/my-profile" element={<MyProile />}></Route> */}
+        <Route path="/dashboard/my-profile" element={<Myprofile />}></Route>
       </Routes>
     </div>
   );

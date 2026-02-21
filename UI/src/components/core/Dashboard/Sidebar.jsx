@@ -10,8 +10,12 @@ const Sidebar = () => {
     <div>
       <div className="flex flex-col min-w-[222px] h-[calc[100vh-3.5rem]] border-r">
         <div className="flex flex-col">
-          {sidebarData.map((element, index) => {
-            return;
+          {sidebarLinks.map((sidebar, index) => {
+            return (
+              <div>
+                <div>{sidebar.name}</div>
+              </div>
+            );
           })}
         </div>
       </div>

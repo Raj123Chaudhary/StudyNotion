@@ -31,12 +31,15 @@ const LoginForm = () => {
     dispatch(loginStart());
     try {
       const data = await login(formData);
-      console.log(data);
-
-      dispatch(loginSuccess({ token: data.token, user: data.userPresent }));
+      dispatch(loginSuccess({ token: data?.token, user: data?.userPresent }));
+      navigate("/");
       // navigate("/dashboard");  not working because of open route work here
     } catch (error) {
-      dispatch(loginFailed(error));
+      dispatch(
+        loginFailed(
+          error?.response?.data?.message || error?.message || "Login failed",
+        ),
+      );
     }
   };
   return (
@@ -78,7 +81,7 @@ const LoginForm = () => {
         </div>
         {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
         <button
-          className="text-center mt-5 px-4 text-[16px] font-semibold py-3 font-semibold outline-none cursor-pointer rounded w-full bg-yellow-400 text-black "
+          className="text-center mt-5 px-4 text-[16px] font-semibold py-3  outline-none cursor-pointer rounded w-full bg-yellow-400 text-black "
           type="submit"
         >
           Sign In

@@ -8,9 +8,9 @@ import { store } from "./store/store.js";
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>
-      <StrictMode>
-        <App />
-      </StrictMode>
+      {/* <StrictMode> */}
+      <App />
+      {/* </StrictMode> */}
     </BrowserRouter>
-  </Provider>
+  </Provider>,
 );

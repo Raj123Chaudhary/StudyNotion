@@ -19,8 +19,9 @@ export const signup = async (formData) => {
   try {
     const response = await axios.post(
       "http://localhost:4000/api/v1/auth/signUp",
-      formData
+      formData,
     );
+    console.log(response);
     return response;
   } catch (error) {
     const message =
@@ -34,11 +35,10 @@ export const sendOTP = async (email) => {
   try {
     const response = await axios.post(
       "http://localhost:4000/api/v1/auth/sendOTP",
-      { email }
+      { email },
     );
     return response;
   } catch (error) {
-    console.log(error);
     const message =
       error?.response?.data?.message || "Failed to send OTP. Please try again.";
 

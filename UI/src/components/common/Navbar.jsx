@@ -22,11 +22,11 @@ const Navbar = () => {
   const getAllCategory = async () => {
     try {
       let response = await apiConnector("GET", COURSE_API.GET_ALL_CATEGORIES);
-      let result = response.data.allCategory;
+      let result = response?.data?.allCategory;
       setSubLinks(result);
       // console.log(result);
     } catch (error) {
-      console.log(error, "error while fetching categoriess");
+      console.log(error?.message, "error while fetching categoriess");
     }
   };
   useEffect(() => {
@@ -50,7 +50,6 @@ const Navbar = () => {
     //     console.log(value.title);
   };
   const handleLogout = () => {
-    console.log("handle Logout");
     setIsProfileOpen(!isProfileOpen);
     dispatch(logout());
   };

@@ -17,6 +17,7 @@ const SignupForm = () => {
   };
   const handleForm = (e) => {
     // console.log(event.target.value);
+    console.log("value", e.target.value);
     setFormData((prev) => {
       return {
         ...prev,
@@ -77,6 +78,7 @@ const SignupForm = () => {
                 placeholder="Enter First Name"
                 name="firstName"
                 id="firstName"
+                value={formData.firstName}
                 required
               />
             </div>

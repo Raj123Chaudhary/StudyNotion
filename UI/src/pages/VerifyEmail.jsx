@@ -25,8 +25,12 @@ const VerifyEmail = () => {
   };
   const handleSubmit = async () => {
     try {
+      // console.log(
+      //   "i am in handle sumbit verify and registor :",
+      //   fullSignupData,
+      // );
       const res = await signup(fullSignupData);
-      dispatch(removeSignFormData());
+      // dispatch(removeSignFormData());
       navigate("/login");
       console.log(res);
     } catch (error) {
@@ -44,7 +48,7 @@ const VerifyEmail = () => {
           </p>
           <input
             className="bg-[#161D29] appearance-none focus:appearance-none focus: px-2 py-3 mt-5 rounded w-full text-white outline-none"
-            inputMode="numeric"
+            // inputMode="numeric"
             pattern="[0-9]*"
             maxLength={6}
             required

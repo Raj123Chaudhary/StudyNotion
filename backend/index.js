@@ -23,9 +23,9 @@ dbConnect();
 // app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:5173"],
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(cookieParse());
@@ -34,7 +34,7 @@ app.use(
     useTempFiles: true,
     tempFileDir: "/tmp/",
     parseNested: true,
-  })
+  }),
 );
 //cloudinary connection
 
