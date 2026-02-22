@@ -9,10 +9,10 @@ const MyProfile = () => {
   }
   console.log("user:", user);
   return (
-    <div className=" ">
-      <div className="p-2">
+    <div className=" h-[calc(100vh-3.6rem)] p-4">
+      <div className="">
         <p>Home {location.pathname}</p>
-        <h1 className="text-xl font-semibold mt-2">My Profile</h1>
+        <h1 className="text-3xl font-semibold mt-2">My Profile</h1>
       </div>
 
       <div className="w-11/12 flex mx-auto justify-between items-center bg-[#161D29] p-4 mt-10">

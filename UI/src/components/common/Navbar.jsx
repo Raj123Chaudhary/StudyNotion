@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
 import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { useEffect, useState, useRef } from "react";
@@ -13,11 +13,13 @@ import { logout } from "../../features/authSlice/authSlice";
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log("user in navbar : ", user);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const { totalItems } = useSelector((state) => state.cart);
   const [subLinks, setSubLinks] = useState([]);
+  console.log("user:", user?.accountType);
   const profileRef = useRef(null);
   const getAllCategory = async () => {
     try {
@@ -52,6 +54,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setIsProfileOpen(!isProfileOpen);
     dispatch(logout());
+    navigate("/");
   };
   return (
     <div className="flex h-14 border-b-[1px] border-[#161D29] items-center">
@@ -107,10 +110,10 @@ const Navbar = () => {
         {/* { signup login dashboard part 3 } if token is come when user login */}
 
         <div className="flex gap-x-4 items-center">
-          {user && user?.accountType !== "Instructor" && (
+          {user && user?.accountType === "Instructor" && (
             <div className="flex gap-4 items-center">
               <GoSearch className="text-white text-xl" />
-              <Link to={"/dashboard/cart"}>
+              <Link to={"#"}>
                 <IoCartOutline className="text-white text-xl" />
                 {totalItems > 0 && (
                   <span className="text-white border ">{totalItems}</span>
@@ -125,7 +128,15 @@ const Navbar = () => {
                 />
                 {isProfileOpen && (
                   <div className="bg-white absolute w-30  -translate-x-15 rounded z-20   translate-y-4 ">
-                    <div className="hover:border p-2">Dashboard</div>
+                    <div
+                      onClick={() => {
+                        navigate("/dashboard/my-profile");
+                        setIsProfileOpen(!isProfileOpen);
+                      }}
+                      className="hover:border p-2"
+                    >
+                      Dashboard
+                    </div>
                     <div onClick={handleLogout} className="hover:border p-2">
                       Logout
                     </div>
@@ -134,6 +145,43 @@ const Navbar = () => {
               </div>
             </div>
           )}
+          {/* { signup login dashboard part 3 } if token is come when user login */}
+          {user && user?.accountType === "Student" && (
+            <div className="flex gap-4 items-center">
+              <GoSearch className="text-white text-xl" />
+              <Link to={"#"}>
+                <IoCartOutline className="text-white text-xl" />
+                {totalItems > 0 && (
+                  <span className="text-white border ">{totalItems}</span>
+                )}
+              </Link>
+              <div ref={profileRef} className="w-8 items-center relative">
+                <img
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  src={user.image}
+                  className="w-full cursor-pointer rounded-full"
+                  alt="user iMage"
+                />
+                {isProfileOpen && (
+                  <div className="bg-white absolute w-30  -translate-x-15 rounded z-20   translate-y-4 ">
+                    <div
+                      onClick={() => {
+                        navigate("/dashboard/my-profile");
+                        setIsProfileOpen(!isProfileOpen);
+                      }}
+                      className="hover:border p-2"
+                    >
+                      Dashboard
+                    </div>
+                    <div onClick={handleLogout} className="hover:border p-2">
+                      Logout
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* if token is null  */}
           {token === null && (
             <Link to={"/login"}>

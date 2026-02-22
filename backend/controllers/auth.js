@@ -171,14 +171,13 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        data: error.message,
         message: "All fields are required Plz fill carefully ",
       });
     }
     //check user exist or not
-    const userPresent = await User.findOne({ email }).populate(
-      "additionalDetail"
-    );
+    const userPresent = await User.findOne({ email })
+      .populate("additionalDetail")
+      .populate("courses");
     if (!userPresent) {
       return res.status(404).json({
         success: false,

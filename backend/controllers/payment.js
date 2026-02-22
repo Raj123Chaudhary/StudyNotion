@@ -94,7 +94,7 @@ exports.verifySignature = async (req, res) => {
       {
         $push: { studentsEnrolled: userId },
       },
-      { new: true }
+      { new: true },
     );
     console.log("enrolledCourse:", enrolledCourse);
     const enrolledStudent = await User.findByIdAndUpdate(
@@ -102,14 +102,14 @@ exports.verifySignature = async (req, res) => {
       {
         $push: { courses: courseId },
       },
-      { new: true }
+      { new: true },
     );
     console.log("enrolledStudent:", enrolledStudent);
     //send mail for successfull by course
     const emailResponse = await mailSender(
       enrolledStudent.email,
       "Congratulation new course",
-      "congo bro"
+      "congo bro",
     );
     console.log(emailResponse);
     return res.status(200).json({

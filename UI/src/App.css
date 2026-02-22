@@ -77,3 +77,9 @@
           width: 100%;
      }
 }
+
+:root {
+     --richblack-700: #2C333F;
+     --richblack-800: #161D29;
+     --richblack-900: #000814;
+}

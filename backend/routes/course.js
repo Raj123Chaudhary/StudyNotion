@@ -37,6 +37,7 @@ const {
   isStudent,
   isAdmin,
 } = require("../middlewares/authMiddleware");
+const { addCourseToStudent } = require("../controllers/addCoursetoStudent");
 
 // ***********************************************************************
 //                      Course Routes
@@ -83,5 +84,9 @@ router.post("/getAllRatingAndReview", getAllRatingAndReview);
 router.post("/createCategory", auth, isAdmin, createCategory);
 router.get("/showAllCategories", showAllCategory);
 router.post("/getCategoryPageDetails", categoryPageDetails);
+
+// addCourse to student
+
+router.post("/addCourseToStudent", auth, isStudent, addCourseToStudent);
 
 module.exports = router;

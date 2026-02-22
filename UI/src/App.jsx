@@ -13,6 +13,9 @@ import Dashboard from "./pages/Dashboard";
 // import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import MyProfile from "./components/core/Dashboard/MyProfile";
+import EnrolledCourse from "./components/core/Dashboard/EnrolledCourse";
+import StudentCart from "./components/core/Dashboard/StudentCart";
+import GlobalModal from "./components/globalModal/GlobalModal";
 function App() {
   return (
     <div className="w-full  min-h-screen  bg-[#000814] flex flex-col">
@@ -55,6 +58,9 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
+          <Route path="enrolled-courses" element={<EnrolledCourse />}></Route>
+          <Route path="cart" element={<StudentCart />}></Route>
+          <Route path="logout" element={<GlobalModal />}></Route>
         </Route>
       </Routes>
     </div>

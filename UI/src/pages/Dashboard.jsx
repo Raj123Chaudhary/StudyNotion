@@ -11,8 +11,8 @@ const Dashboard = () => {
   return (
     <div className=" text-white border flex  border-red-400 h-[cal(100vh-3.5rem)] relative">
       <Sidebar />
-      <div className="h-full w-full flex justify-center items-center">
-        <div className="w-11/12 border border-yellow-400">
+      <div className="h-full w-full border flex justify-center items-center">
+        <div className="w-11/12 h-full  border">
           <Outlet />
         </div>
       </div>
