@@ -9,10 +9,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="bg-yellow-500 h-[cal(100vh-3.5rem)] relative">
+    <div className=" text-white border flex  border-red-400 h-[cal(100vh-3.5rem)] relative">
       <Sidebar />
-      <div className="h-full">
-        <div className="w-11/12 mx-auto">
+      <div className="h-full w-full flex justify-center items-center">
+        <div className="w-11/12 border border-yellow-400">
           <Outlet />
         </div>
       </div>

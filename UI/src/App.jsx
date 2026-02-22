@@ -9,8 +9,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import UpdatePassword from "./pages/UpdatePassword";
+import Dashboard from "./pages/Dashboard";
 // import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
+import MyProfile from "./components/core/Dashboard/MyProfile";
 function App() {
   return (
     <div className="w-full  min-h-screen  bg-[#000814] flex flex-col">
@@ -51,7 +53,9 @@ function App() {
           }
         ></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/dashboard/my-profile" element={<Myprofile />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
+        </Route>
       </Routes>
     </div>
   );

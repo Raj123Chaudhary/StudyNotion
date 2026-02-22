@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { login } from "../../../services/operations/authAPI";
 import {
   loginFailed,
@@ -10,6 +10,8 @@ import {
 } from "../../../features/authSlice/authSlice";
 
 const LoginForm = () => {
+  const location = useLocation();
+  console.log(location.pathname);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
@@ -32,8 +34,9 @@ const LoginForm = () => {
     try {
       const data = await login(formData);
       dispatch(loginSuccess({ token: data?.token, user: data?.userPresent }));
-      navigate("/");
-      // navigate("/dashboard");  not working because of open route work here
+      console.log("login success fully");
+
+      // navigate(""); // not working because of open route work here
     } catch (error) {
       dispatch(
         loginFailed(
