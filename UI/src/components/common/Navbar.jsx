@@ -133,11 +133,11 @@ const Navbar = () => {
                         navigate("/dashboard/my-profile");
                         setIsProfileOpen(!isProfileOpen);
                       }}
-                      className="hover:border p-2"
+                      className="border-b cursor-pointer p-2"
                     >
                       Dashboard
                     </div>
-                    <div onClick={handleLogout} className="hover:border p-2">
+                    <div onClick={handleLogout} className="cursor-pointer p-2">
                       Logout
                     </div>
                   </div>
@@ -163,17 +163,17 @@ const Navbar = () => {
                   alt="user iMage"
                 />
                 {isProfileOpen && (
-                  <div className="bg-white absolute w-30  -translate-x-15 rounded z-20   translate-y-4 ">
+                  <div className="bg-white absolute w-30 border-2 -translate-x-15 rounded z-20   translate-y-4 ">
                     <div
                       onClick={() => {
                         navigate("/dashboard/my-profile");
                         setIsProfileOpen(!isProfileOpen);
                       }}
-                      className="hover:border p-2"
+                      className="border-b cursor-pointer p-2"
                     >
                       Dashboard
                     </div>
-                    <div onClick={handleLogout} className="hover:border p-2">
+                    <div onClick={handleLogout} className=" cursor-pointer p-2">
                       Logout
                     </div>
                   </div>
