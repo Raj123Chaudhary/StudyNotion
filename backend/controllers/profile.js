@@ -28,7 +28,7 @@ exports.updateProfile = async (req, res) => {
         contactNumber,
         gender,
       },
-      { new: true }
+      { new: true },
     );
     //update profile
 
@@ -78,7 +78,7 @@ exports.deleteAccount = async (req, res) => {
     await Course.updateMany(
       { studentsEnrolled: id },
       { $pull: { studentsEnrolled: id } },
-      { multi: true }
+      { multi: true },
     );
 
     //delete user
@@ -96,6 +96,7 @@ exports.deleteAccount = async (req, res) => {
   }
 };
 
+// get User additionalDetail
 exports.getUserDetails = async (req, res) => {
   try {
     //get all user data
@@ -115,6 +116,34 @@ exports.getUserDetails = async (req, res) => {
       success: false,
       message: "user details not found",
       error: error.message,
+    });
+  }
+};
+
+exports.getEnrolledCourses = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // get user
+    const user = await User.findById(userId)
+      .populate({ path: "courses" })
+      .exec();
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found", success: false });
+    }
+    // get user enrolled courses
+    const enrolledCourses = user.courses;
+    return res.status(200).json({
+      message: "successfully fetch enrolled courses",
+      success: true,
+      enrolledCourses: enrolledCourses,
+    });
+  } catch (error) {
+    console.log("Error in fetching getEnrolledCourses :", error);
+    res.status(500).json({
+      message: "Error in fetching getEnrolledCourses",
+      success: false,
     });
   }
 };

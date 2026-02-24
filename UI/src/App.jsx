@@ -17,6 +17,7 @@ import EnrolledCourse from "./components/core/Dashboard/EnrolledCourse";
 import StudentCart from "./components/core/Dashboard/StudentCart";
 
 import MyCourses from "./components/core/Dashboard/Instructor/MyCourses";
+import Setting from "./components/core/Dashboard/Setting";
 function App() {
   return (
     <div className="w-full  min-h-screen  bg-[#000814] flex flex-col">
@@ -57,12 +58,22 @@ function App() {
           }
         ></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
-          <Route path="enrolled-courses" element={<EnrolledCourse />}></Route>
-          <Route path="cart" element={<StudentCart />}></Route>
+        <Route
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="/dashboard/my-profile" element={<MyProfile />}></Route>
+          <Route
+            path="/dashboard/enrolled-courses"
+            element={<EnrolledCourse />}
+          ></Route>
+          <Route path="/dashboard/cart" element={<StudentCart />}></Route>
 
-          <Route path="my-courses" element={<MyCourses />}></Route>
+          <Route path="/dashboard/my-courses" element={<MyCourses />}></Route>
+          <Route path="/dashboard/setting" element={<Setting />}></Route>
         </Route>
       </Routes>
     </div>

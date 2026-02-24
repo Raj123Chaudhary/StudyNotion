@@ -29,6 +29,13 @@ exports.auth = async (req, res, next) => {
       req.user = decode;
       //I verified the token, now I will store the user info inside req so other functions can use it.”
     } catch (error) {
+      if (error.name === "TokenExpiredError") {
+        return res.status(401).json({
+          success: false,
+          message: "token expired, please login again",
+        });
+      }
+
       return res.status(401).json({
         success: false,
         message: "token is invalid",

@@ -47,16 +47,13 @@ export const sidebarLinks = [
   },
   {
     id: 7,
+    name: "Line",
+  },
+  {
+    id: 8,
     name: "Setting",
     path: "/dashboard/setting",
 
     icon: "VscSettings",
-  },
-  {
-    id: 8,
-    name: "Logout",
-    path: "/dashboard/logout",
-
-    icon: "VscCloseAll",
   },
 ];

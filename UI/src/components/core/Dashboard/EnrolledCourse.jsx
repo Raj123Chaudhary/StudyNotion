@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import CourseDetails from "./CourseDetails";
-
+import { getEnrolledCourses } from "../../../services/operations/profileAPI";
 const EnrolledCourse = () => {
   const location = useLocation();
-  const { user } = useSelector((state) => state.auth);
-  const [course, setCourse] = useState("all");
 
-  console.log(user);
+  const [enrolledCourses, setEnrolledCourses] = useState(null);
+  console.log(enrolledCourses);
+  const fetchEnrolledCourses = async () => {
+    try {
+      const enrolledCourses = await getEnrolledCourses();
+      setEnrolledCourses(enrolledCourses);
+      // console.log(enrolledCourses);
+    } catch (error) {
+      console.log("Error in fetching enrolled courses:", error.message);
+    }
+  };
+  useEffect(() => {
+    fetchEnrolledCourses();
+    console.log("enrolledCourses:", enrolledCourses);
+  }, []);
+
   return (
     <div className=" h-[calc(100vh-3.6rem)] p-4">
       {/* title   */}
       <div>
-        <div>Home {location.pathname}</div>
         <h2 className="text-3xl font-semibold mt-2">Enrolled Courses</h2>
       </div>
       {/* status all pending completed  */}
@@ -39,7 +51,7 @@ const EnrolledCourse = () => {
           <div className="  w-[30%] ">Progress</div>
         </div>
         {/* course details  */}
-        <CourseDetails courses={user.courses} />
+        {/* <CourseDetails courses={user.courses} /> */}
       </div>
     </div>
   );

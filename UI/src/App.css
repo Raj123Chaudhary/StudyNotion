@@ -79,7 +79,19 @@
 }
 
 :root {
+     /* Rich Black Palette */
+     --richblack-25: #F8F9FC;
+     --richblack-50: #EFF1F6;
+     --richblack-100: #DCE0EA;
+     --richblack-200: #B9C0D4;
+     --richblack-300: #98A1C0;
+     --richblack-400: #6E7A99;
+     --richblack-500: #4B5563;
+     --richblack-600: #3A4150;
      --richblack-700: #2C333F;
+     /* your color */
      --richblack-800: #161D29;
+     /* your color */
      --richblack-900: #000814;
+     /* your color */
 }

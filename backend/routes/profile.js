@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { auth } = require("../middlewares/authMiddleware");
+const { auth, isStudent } = require("../middlewares/authMiddleware");
 
 const {
   resetPasswordToken,
@@ -10,6 +10,7 @@ const {
   deleteAccount,
   updateProfile,
   getUserDetails,
+  getEnrolledCourses,
 } = require("../controllers/profile");
 
 router.delete("/deleteProfile", auth, deleteAccount);
@@ -17,7 +18,7 @@ router.put("/updateProfile", auth, updateProfile);
 router.get("/getUserDetails", auth, getUserDetails);
 
 // new get enrooled course
-// router.get("/getEnrolledCourses", auth, getEnrolledCourses);
+router.get("/getEnrolledCourses", auth, isStudent, getEnrolledCourses);
 // router.put("/updateDisplayPicture", auth, updateDisplayPicture);
 
 // Route for generating a reset password token

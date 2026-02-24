@@ -16,13 +16,13 @@ const Sidebar = () => {
   }
   return (
     <div>
-      <div className="flex flex-col min-w-[222px]   w-[222px] bg-(--richblack-800) h-[calc(100vh-3.6rem)] border-gray-600  border-r-2">
-        <div className="flex  flex-col  ">
+      <div className="flex flex-col min-w-[222px]    w-[222px] bg-(--richblack-800) h-full border-t  border-gray-600  border-r-2">
+        <div className="flex  flex-col mt-10  ">
           {sidebarLinks.map((sidebar, index) => {
             const Icon = Icons[sidebar.icon];
             return (
               <div
-                className={`${location.pathname === sidebar.path ? "bg-amber-300 " : ""}`}
+                className={`${location.pathname === sidebar.path ? "bg-[#3D2A01] text-[#FFD60A] font-semibold " : ""}`}
                 key={sidebar.id}
               >
                 <Link to={`${sidebar.path}`}>
@@ -39,9 +39,9 @@ const Sidebar = () => {
                     </div>
                   ) : null}
                   {sidebar.id === 7 && (
-                    <div className="w-11/12 mx-auto h-1 mt-3 mb-2 bg-gray-500 "></div>
+                    <div className="w-11/12 mx-auto h-1 mt-3 mb-2 bg-gray-500  "></div>
                   )}
-                  {sidebar.id === 7 && (
+                  {sidebar.id === 8 && (
                     <div className="py-2 px-4 flex gap-2 items-center  ">
                       <Icon className="text-lg font-semibold"></Icon>
                       <span>{sidebar.name}</span>
