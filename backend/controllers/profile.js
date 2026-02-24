@@ -2,7 +2,8 @@ const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Course = require("../models/Course");
 const CourseProgress = require("../models/CourseProgress");
-
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
+// update profile
 exports.updateProfile = async (req, res) => {
   try {
     //  fetch data
@@ -47,6 +48,31 @@ exports.updateProfile = async (req, res) => {
       error: error.message,
       message: "Profile not updated successfully",
     });
+  }
+};
+
+//change profile Image
+
+exports.updateProfileImage = async (req, res) => {
+  try {
+    console.log("i am in updateprofileImage");
+    const image = req.files.imageFile;
+    console.log("image:", image);
+    // check validataion
+    if (!image) {
+      return res
+        .status(400)
+        .json({ message: "Select Image First", success: false });
+    }
+    //upload image to the cloudinary
+    const uploadImage = await uploadImageToCloudinary(
+      image,
+      process.env.FOLDER_NAME,
+    );
+    console.log("uploade Image : ", uploadImage);
+  } catch (error) {
+    console.log("Error in update profile image : ", error);
+    return res.status(500).json({ message: "Error in updating profile image" });
   }
 };
 

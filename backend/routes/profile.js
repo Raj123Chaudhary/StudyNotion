@@ -11,10 +11,12 @@ const {
   updateProfile,
   getUserDetails,
   getEnrolledCourses,
+  updateProfileImage,
 } = require("../controllers/profile");
 
 router.delete("/deleteProfile", auth, deleteAccount);
 router.put("/updateProfile", auth, updateProfile);
+router.put("/updateProfileImage", auth, updateProfileImage);
 router.get("/getUserDetails", auth, getUserDetails);
 
 // new get enrooled course
