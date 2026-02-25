@@ -15,8 +15,8 @@ const Sidebar = () => {
     return <div className="loader"></div>;
   }
   return (
-    <div>
-      <div className="flex flex-col min-w-[222px]    w-[222px] bg-(--richblack-800) h-full border-t  border-gray-600  border-r-2">
+    <div className=" h-[calc(100vh-3.6rem)]">
+      <div className="flex flex-col min-w-[222px]    w-[222px] bg-(--richblack-800) h-[calc(100vh-3.6rem)] border-t  border-gray-600  border-r-2">
         <div className="flex  flex-col mt-10  ">
           {sidebarLinks.map((sidebar, index) => {
             const Icon = Icons[sidebar.icon];

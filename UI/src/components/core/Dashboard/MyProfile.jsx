@@ -38,7 +38,7 @@ const MyProfile = () => {
         <div>
           <button
             onClick={() => navigate("/dashboard/setting")}
-            className="bg-amber-400 px-4 py-2 rounded-md"
+            className="bg-amber-400 cursor-pointer transition-all duration-200 hover:scale-95 px-4 py-2 rounded-md"
           >
             Edit
           </button>
@@ -50,7 +50,7 @@ const MyProfile = () => {
           <h2 className="text-(--richblack-300)">About</h2>
           <button
             onClick={() => navigate("/dashboard/setting")}
-            className="bg-amber-400 px-4 py-2 rounded-md"
+            className="bg-amber-400 cursor-pointer transition-all duration-200 hover:scale-95  px-4 py-2 rounded-md"
           >
             Edit
           </button>
@@ -65,7 +65,7 @@ const MyProfile = () => {
           <h2 className="text-xl font-semibold">Personal Details</h2>
           <button
             onClick={() => navigate("/dashboard/setting")}
-            className="bg-amber-400  px-4 py-2 rounded-md"
+            className="bg-amber-400 cursor-pointer transition-all duration-200 hover:scale-95 px-4 py-2 rounded-md"
           >
             Edit
           </button>

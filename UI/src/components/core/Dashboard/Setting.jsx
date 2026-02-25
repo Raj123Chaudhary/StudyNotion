@@ -10,7 +10,16 @@ const Setting = () => {
   const [profileInformation, setProfileInformation] = useState({});
   const profileRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
-  console.log(profileImage);
+  const [updateProfile, setUpdateProfile] = useState({});
+  // console.log(profileImage);
+
+  // Handle handleProfileInformationUpload
+  const handleProfileInformation = (e) => {
+    console.log(e.target.value);
+  };
+
+  // handle profile Image Uplaod
+
   const handleSelectClick = () => {
     profileRef.current.click();
   };
@@ -22,7 +31,7 @@ const Setting = () => {
   };
   const formData = new FormData();
   formData.append("profileImage", profileImage);
-  const handleUpload = async () => {
+  const handleProfileImageUpload = async () => {
     if (!profileImage) {
       alert("Select image first");
       return;
@@ -54,13 +63,13 @@ const Setting = () => {
             <div className="flex gap-4 mt-2 rounded">
               <button
                 onClick={handleSelectClick}
-                className="px-5 py-2.5 rounded text-white bg-(--richblack-700) "
+                className="px-5 py-2.5 cursor-pointer transition-all duration-200 hover:scale-95  rounded text-white bg-(--richblack-700) "
               >
                 Select
               </button>
               <div
-                onClick={handleUpload}
-                className="bg-amber-300 flex gap-2 items-center rounded text-black px-5 py-2.5 border"
+                onClick={handleProfileImageUpload}
+                className="bg-amber-300 transition-all duration-200 hover:scale-95  cursor-pointer flex gap-2 items-center rounded text-black px-5 py-2.5 border"
               >
                 <span>Upload</span>
                 <input
@@ -88,6 +97,7 @@ const Setting = () => {
                 name="firstName"
                 className=" text-white bg-(--richblack-700) px-4 py-2 rounded-md"
                 type="text"
+                onChange={handleProfileInformation}
               />
             </div>
             <div className="flex flex-col gap-2 w-1/2">
@@ -97,6 +107,7 @@ const Setting = () => {
                 name="lastName"
                 className="rounded-md text-white bg-(--richblack-700) px-4 py-2"
                 type="text"
+                onChange={handleProfileInformation}
               />
             </div>
           </div>
@@ -107,9 +118,10 @@ const Setting = () => {
               </label>
               <input
                 placeholder="Enter Date of Birth"
-                name="firstName"
+                name="date"
                 className=" text-white bg-(--richblack-700) px-4 py-2 rounded-md"
                 type="date"
+                onChange={handleProfileInformation}
               />
             </div>
             <div className="flex flex-col gap-2 w-1/2">
@@ -121,20 +133,23 @@ const Setting = () => {
                   className=" scale-110 "
                   type="radio"
                   value={"male"}
+                  onChange={handleProfileInformation}
                 />
                 <label htmlFor="">Female</label>
                 <input
                   className=" scale-110 "
-                  value={"male"}
+                  value="female"
                   name="gender"
                   type="radio"
+                  onChange={handleProfileInformation}
                 />
                 <label htmlFor="">Other</label>
                 <input
                   className=" scale-110 "
-                  value={"male"}
+                  value={"other"}
                   name="gender"
                   type="radio"
+                  onChange={handleProfileInformation}
                 />
               </div>
             </div>
@@ -146,29 +161,31 @@ const Setting = () => {
               </label>
               <input
                 placeholder="Enter Contact Number"
-                name="firstName"
+                name="contactNumber"
                 className=" text-white bg-(--richblack-700) px-4 py-2 rounded-md"
                 type="text"
                 maxLength={10}
+                onChange={handleProfileInformation}
               />
             </div>
             <div className="flex flex-col gap-2 w-1/2">
               <label className="font-semibold text-lg">About</label>
               <input
                 placeholder="About"
-                name="lastName"
+                name="about"
                 className="rounded-md text-white bg-(--richblack-700) px-4 py-2"
                 type="text"
+                onChange={handleProfileInformation}
               />
             </div>
           </div>
         </div>
         <div className="flex justify-end mt-5">
           <div className="flex gap-4 ">
-            <button className="px-5 rounded-md py-2.5 bg-(--richblack-700) ">
+            <button className="px-5 transition-all duration-200 hover:scale-95  rounded-md cursor-pointer py-2.5 bg-(--richblack-700) ">
               Cancel
             </button>
-            <button className="px-5 rounded-md py-2.5 bg-yellow-400">
+            <button className="px-5 transition-all duration-200 hover:scale-95  rounded-md py-2.5 cursor-pointer bg-yellow-400">
               Update
             </button>
           </div>
@@ -201,10 +218,10 @@ const Setting = () => {
         </div>
         <div className="flex justify-end mt-5">
           <div className="flex gap-4 ">
-            <button className="px-5 rounded-md py-2.5 bg-(--richblack-700) ">
+            <button className="px-5 cursor-pointer transition-all duration-200 hover:scale-95 rounded-md py-2.5 bg-(--richblack-700) ">
               Cancel
             </button>
-            <button className="px-5 rounded-md py-2.5 bg-yellow-400">
+            <button className="px-5 cursor-pointer transition-all duration-200 hover:scale-95  rounded-md py-2.5 bg-yellow-400">
               Update
             </button>
           </div>
@@ -214,7 +231,7 @@ const Setting = () => {
           <div className="">
             <AiOutlineDelete className="text-[#EF476F] gap-4 w-[50px] h-[50px] rounded-full bg-[#691432]" />
           </div>
-          <div className="flex flex-col  items-start">
+          <div className="flex flex-col gap-3  items-start">
             <h2 className="text-[#FBC7D1] font-semibold text-lg">
               Delete Account
             </h2>
@@ -223,7 +240,7 @@ const Setting = () => {
               This account contains paid courses deleting your account remove
               all contains associated with it
             </p>
-            <button className="text-[#D43D63] cursor-pointer ">
+            <button className="text-[#D43D63] hover:ml-2 hover:scale-110 duration-200 transition-all cursor-pointer ">
               I want to delete my account
             </button>
           </div>

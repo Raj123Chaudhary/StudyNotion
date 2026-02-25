@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { auth, isStudent } = require("../middlewares/authMiddleware");
+const { updateProfileValidator } = require("../Validators/profileValidator");
+
+const validRequest = require("../middlewares/validateRequest");
 
 const {
   resetPasswordToken,
@@ -15,7 +18,13 @@ const {
 } = require("../controllers/profile");
 
 router.delete("/deleteProfile", auth, deleteAccount);
-router.put("/updateProfile", auth, updateProfile);
+router.patch(
+  "/updateProfile",
+  auth,
+  updateProfileValidator,
+  validRequest,
+  updateProfile,
+);
 router.put("/updateProfileImage", auth, updateProfileImage);
 router.get("/getUserDetails", auth, getUserDetails);
 
