@@ -177,7 +177,8 @@ exports.login = async (req, res) => {
     //check user exist or not
     const userPresent = await User.findOne({ email })
       .populate("additionalDetail")
-      .populate("courses");
+      .exec();
+
     if (!userPresent) {
       return res.status(404).json({
         success: false,
@@ -206,8 +207,6 @@ exports.login = async (req, res) => {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
         secure: false,
-        path: "/",
-        sameSite: "none",
       };
       // console.log("tokenLogin:", token);
       //create cookie and send response

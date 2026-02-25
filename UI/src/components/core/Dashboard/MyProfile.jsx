@@ -1,14 +1,19 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
-  const { loading: authLoading, user } = useSelector((state) => state.auth);
+  const { loading: profileLoading, user } = useSelector(
+    (state) => state.profile,
+  );
+  console.log("user in my profile:", user);
   const navigate = useNavigate();
   const location = useLocation();
-  if (authLoading) {
+  if (profileLoading) {
     return <div className=".loader"></div>;
   }
-  console.log("user:", user);
+
+  // console.log("user:", user);
   return (
     <div className=" h-[calc(100vh-3.6rem)] p-4">
       <div className="w-11/12 mx-auto">
@@ -19,11 +24,11 @@ const MyProfile = () => {
         {/* profile left side */}
         <div className="flex gap-5 items-center">
           {/* img */}
-          <div>
+          <div className="w-[70px] h-[70px] ">
             <img
-              className="w-15 rounded-full"
+              className="w-full h-full rounded-full object-cover"
               src={user?.image}
-              alt="userImage"
+              alt="user profile"
             />
           </div>
           {/* name  */}
@@ -87,11 +92,13 @@ const MyProfile = () => {
         >
           <div className="w-1/2">
             <h2 className="text-(--richblack-300)">Email</h2>
-            <p>{user.email}</p>
+            <p>{user?.email}</p>
           </div>
           <div className="w-1/2">
             <h2 className="text-(--richblack-300)">Phone Number</h2>
-            <p>{user.contactNumber}</p>
+            <p>
+              {user?.additionalDetails?.contactNumber || "Add Contact Number"}
+            </p>
           </div>
         </div>
         <div className="flex justify-between items-center mt-2 ">

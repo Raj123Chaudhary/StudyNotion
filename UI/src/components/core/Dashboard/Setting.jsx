@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useRef } from "react";
 import { updateProfileImage } from "../../../services/operations/profileAPI";
+import { setUser } from "../../../features/profileSlice/profileSlice";
 
 const Setting = () => {
-  const { user } = useSelector((state) => state.auth);
-  const [profileInformation, setProfileInformation] = useState({});
+  const { user } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
   const profileRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
   const [updateProfile, setUpdateProfile] = useState({});
@@ -15,7 +17,13 @@ const Setting = () => {
 
   // Handle handleProfileInformationUpload
   const handleProfileInformation = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
+    const { value, name } = e.target;
+    console.log(value, name);
+    setUpdateProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   // handle profile Image Uplaod
@@ -42,7 +50,9 @@ const Setting = () => {
 
     try {
       console.log("I am in handle upload");
-      await updateProfileImage(formData);
+      const data = await updateProfileImage(formData);
+      console.log("data in setting", data);
+      dispatch(setUser(data?.user));
     } catch (error) {
       console.log("error:", error.message);
     }
@@ -53,8 +63,12 @@ const Setting = () => {
         <h1 className="text-3xl font-semibold">Setting</h1>
         {/* section 1 profile change  */}
         <div className="flex  mt-8 gap-8  rounded-md items-center px-8 py-4 bg-(--richblack-800)">
-          <div className="w-[70px] ">
-            <img className="w-full rounded-full" src={user.image} alt="logo" />
+          <div className="w-[80px] h-[80px] ">
+            <img
+              className="w-full h-full object-cover rounded-full"
+              src={user.image}
+              alt="logo"
+            />
           </div>
           <div className="flex flex-col">
             <div>
@@ -118,7 +132,7 @@ const Setting = () => {
               </label>
               <input
                 placeholder="Enter Date of Birth"
-                name="date"
+                name="dateOfBirth"
                 className=" text-white bg-(--richblack-700) px-4 py-2 rounded-md"
                 type="date"
                 onChange={handleProfileInformation}

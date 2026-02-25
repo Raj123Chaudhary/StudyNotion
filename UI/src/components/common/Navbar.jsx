@@ -12,6 +12,8 @@ import { logout } from "../../features/authSlice/authSlice";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
+  const { user: profileUser } = useSelector((state) => state.profile);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // console.log("user in navbar : ", user);
@@ -122,7 +124,7 @@ const Navbar = () => {
               <div ref={profileRef} className="w-8 items-center relative">
                 <img
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  src={user.image}
+                  src={user?.image}
                   className="w-full cursor-pointer rounded-full"
                   alt="user iMage"
                 />
@@ -155,11 +157,14 @@ const Navbar = () => {
                   <span className="text-white border ">{totalItems}</span>
                 )}
               </Link>
-              <div ref={profileRef} className="w-8 items-center relative">
+              <div
+                ref={profileRef}
+                className="items-center  w-[32px] h-[32px] relative"
+              >
                 <img
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  src={user.image}
-                  className="w-full cursor-pointer rounded-full"
+                  src={profileUser?.image}
+                  className="w-full object-cover h-full cursor-pointer rounded-full"
                   alt="user iMage"
                 />
                 {isProfileOpen && (

@@ -1,6 +1,7 @@
 // getEnrolledCourses api
 import { PROFILE_API } from "../apis";
 import { apiConnector } from "../apiConnector";
+
 export const getEnrolledCourses = async () => {
   try {
     const response = await apiConnector(
@@ -29,6 +30,7 @@ export const updateProfileImage = async (formData) => {
       },
     );
     console.log("success", response?.data?.message);
+    return response?.data;
   } catch (error) {
     throw new Error(
       error?.response?.data?.message || "Error While Updating Profile Image",

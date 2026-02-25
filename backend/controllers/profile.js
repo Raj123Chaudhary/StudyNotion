@@ -105,14 +105,18 @@ exports.updateProfileImage = async (req, res) => {
       process.env.FOLDER_NAME,
     );
     // console.log("uploade Image : ", uploadImage);
-    await User.findByIdAndUpdate(
+    const updateUser = await User.findByIdAndUpdate(
       userId,
       { image: uploadImage?.secure_url },
       { new: true },
     );
     return res
       .status(200)
-      .json({ message: "Profile Image Update successfully", success: true });
+      .json({
+        message: "Profile Image Update successfully",
+        success: true,
+        user: updateUser,
+      });
   } catch (error) {
     console.log("Error in update profile image : ", error);
     return res.status(500).json({ message: "Error in updating profile image" });

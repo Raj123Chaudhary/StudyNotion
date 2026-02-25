@@ -8,6 +8,10 @@ import {
   loginStart,
   loginSuccess,
 } from "../../../features/authSlice/authSlice";
+import {
+  setLoading,
+  setUser,
+} from "../../../features/profileSlice/profileSlice";
 
 const LoginForm = () => {
   const location = useLocation();
@@ -31,9 +35,11 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(loginStart());
+    dispatch(setLoading(true));
     try {
       const data = await login(formData);
       dispatch(loginSuccess({ token: data?.token, user: data?.userPresent }));
+      dispatch(setUser(data?.userPresent));
       console.log("login success fully");
 
       // navigate(""); // not working because of open route work here
