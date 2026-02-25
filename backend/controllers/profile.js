@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Course = require("../models/Course");
 const CourseProgress = require("../models/CourseProgress");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+
 // update profile
 exports.updateProfile = async (req, res) => {
   try {
@@ -55,8 +56,14 @@ exports.updateProfile = async (req, res) => {
 
 exports.updateProfileImage = async (req, res) => {
   try {
-    console.log("i am in updateprofileImage");
-    const image = req.files.imageFile;
+    const userId = req?.user?.id;
+    if (!userId) {
+      return res
+        .status(404)
+        .json({ message: "user not found", success: false });
+    }
+    // console.log("i am in updateprofileImage");
+    const image = req?.files?.imageFile;
     console.log("image:", image);
     // check validataion
     if (!image) {
@@ -64,12 +71,41 @@ exports.updateProfileImage = async (req, res) => {
         .status(400)
         .json({ message: "Select Image First", success: false });
     }
+    //check only jpeg and png upload in cloudinary
+    // const { fileTypeFromBuffer } = await import("file-type");
+    // const type = await fileTypeFromBuffer(image.data);
+    // console.log("type:", type);
+
+    // if (!type || !["image/png", "image/jpeg"].includes(type.mimetype)) {
+    //   return res.status(400).json({
+    //     message: "Only PNG and JPEG images are allowed",
+    //     success: false,
+    //   });
+    // }
+    // 1. MIME type
+    if (!["image/png", "image/jpeg"].includes(image.mimetype)) {
+      return res.status(400).json({ message: "Invalid image type" });
+    }
+
+    // 2. File size
+    // if (image.size > 2 * 1024 * 1024) {
+    //   return res.status(400).json({ message: "Max size 2MB" });
+    // }
     //upload image to the cloudinary
     const uploadImage = await uploadImageToCloudinary(
       image,
       process.env.FOLDER_NAME,
     );
-    console.log("uploade Image : ", uploadImage);
+    // console.log("uploade Image : ", uploadImage);
+    await User.findByIdAndUpdate(
+      userId,
+      { image: uploadImage?.secure_url },
+      { new: true },
+    );
+    console.log("monodo db added");
+    return res
+      .status(200)
+      .json({ message: "Profile Image Update successfully", success: true });
   } catch (error) {
     console.log("Error in update profile image : ", error);
     return res.status(500).json({ message: "Error in updating profile image" });

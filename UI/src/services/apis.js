@@ -16,4 +16,5 @@ export const AUTH_API = {
 
 export const PROFILE_API = {
   GET_ENROLLED_COURSES: "/profile/getEnrolledCourses",
+  UPDATE_PROFILE_IMAGE: "/profile/updateProfileImage",
 };

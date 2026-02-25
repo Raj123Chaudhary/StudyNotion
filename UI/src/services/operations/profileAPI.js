@@ -17,3 +17,21 @@ export const getEnrolledCourses = async () => {
     throw new Error(message);
   }
 };
+
+export const updateProfileImage = async (formData) => {
+  try {
+    const response = await apiConnector(
+      "PUT",
+      PROFILE_API.UPDATE_PROFILE_IMAGE,
+      formData,
+      {
+        "Content-Type": "multipart/form-data",
+      },
+    );
+    console.log("success", response?.data?.message);
+  } catch (error) {
+    throw new Error(
+      error?.response?.data?.message || "Error While Updating Profile Image",
+    );
+  }
+};

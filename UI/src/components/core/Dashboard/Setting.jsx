@@ -2,10 +2,42 @@ import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { MdOutlineFileUpload } from "react-icons/md";
+import { useRef } from "react";
+import { updateProfileImage } from "../../../services/operations/profileAPI";
 
 const Setting = () => {
   const { user } = useSelector((state) => state.auth);
   const [profileInformation, setProfileInformation] = useState({});
+  const profileRef = useRef(null);
+  const [profileImage, setProfileImage] = useState(null);
+  console.log(profileImage);
+  const handleSelectClick = () => {
+    profileRef.current.click();
+  };
+  const handleFileChange = (e) => {
+    console.log("i am in handle file change");
+    const file = e.target.files[0];
+    if (!file) return;
+    setProfileImage(file);
+  };
+  const formData = new FormData();
+  formData.append("profileImage", profileImage);
+  const handleUpload = async () => {
+    if (!profileImage) {
+      alert("Select image first");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("imageFile", profileImage); // 👈 backend key match
+
+    try {
+      console.log("I am in handle upload");
+      await updateProfileImage(formData);
+    } catch (error) {
+      console.log("error:", error.message);
+    }
+  };
   return (
     <div className="text-white">
       <div className="mt-8">
@@ -20,12 +52,24 @@ const Setting = () => {
               <h2 className="text-lg font-semibold">Change Profile Picture</h2>
             </div>
             <div className="flex gap-4 mt-2 rounded">
-              <button className="px-5 py-2.5 rounded text-white bg-(--richblack-700) ">
+              <button
+                onClick={handleSelectClick}
+                className="px-5 py-2.5 rounded text-white bg-(--richblack-700) "
+              >
                 Select
               </button>
-              <div className="bg-amber-300 flex gap-2 items-center rounded text-black px-5 py-2.5 border">
+              <div
+                onClick={handleUpload}
+                className="bg-amber-300 flex gap-2 items-center rounded text-black px-5 py-2.5 border"
+              >
                 <span>Upload</span>
-                <input type="file" className="hidden" />
+                <input
+                  ref={profileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
                 <MdOutlineFileUpload className="text-lg" />
               </div>
             </div>
