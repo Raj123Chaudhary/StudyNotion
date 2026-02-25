@@ -8,46 +8,54 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 exports.updateProfile = async (req, res) => {
   try {
     //  fetch data
-    const { dateOfBirth = "", about = "", contactNumber, gender } = req.body;
+    const { firstName, lastName, dateOfBirth, about, contactNumber, gender } =
+      req.body;
     //get userId
     const userId = req.user.id;
-    //validation
-
-    if (!contactNumber || !gender || !userId) {
-      return res.status(400).json({
-        success: false,
-        message: "all fields are required",
-      });
+    if (!userId) {
+      return res
+        .status(404)
+        .json({ message: "user not found", success: false });
     }
+
     //find profile
     const userDetails = await User.findById(userId);
     const profileId = userDetails.additionalDetail;
-    const profileDetails = await Profile.findByIdAndUpdate(
-      profileId,
-      {
-        dateOfBirth,
-        about,
-        contactNumber,
-        gender,
-      },
-      { new: true },
-    );
-    //update profile
+    // check  and update user firstName and LastName
+    if (firstName || lastName) {
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          ...(firstName && { firstName: firstName }),
+          ...(lastName && { lastName: lastName }),
+        },
+        { new: true },
+      );
+    }
+    // update profile data or User (additionDetails)
+    const updateProfile = {
+      ...(dateOfBirth && { dateOfBirth: dateOfBirth }),
+      ...(gender && { gender: gender }),
+      ...(about && { about: about }),
+      ...(contactNumber && { contactNumber: contactNumber }),
+    };
+    // update profile or userAdditional details
+    await Profile.findByIdAndUpdate(profileId, updateProfile, { new: true });
+    const updatedUser = await User.findById(userId)
+      .populate({ path: "additionalDetail" })
+      .exec();
 
-    // await profileDetails.save();
-
-    // return res
     return res.status(200).json({
       success: true,
-      message: "profile updated successfully",
-      updateProfile: profileDetails,
+      message: "User details updated successfully",
+      updatedUser: updatedUser,
     });
   } catch (error) {
     console.log("error occured while updating profile ", error);
     return res.status(500).json({
       success: false,
       error: error.message,
-      message: "Profile not updated successfully",
+      message: "User details not updated",
     });
   }
 };
@@ -102,7 +110,6 @@ exports.updateProfileImage = async (req, res) => {
       { image: uploadImage?.secure_url },
       { new: true },
     );
-    console.log("monodo db added");
     return res
       .status(200)
       .json({ message: "Profile Image Update successfully", success: true });
