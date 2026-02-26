@@ -37,3 +37,18 @@ export const updateProfileImage = async (formData) => {
     );
   }
 };
+
+export const updateProfile = async (updateProfile) => {
+  console.log("i am in update profile ");
+  try {
+    const response = await apiConnector(
+      "PATCH",
+      PROFILE_API.UPDATE_PROFILE,
+      updateProfile,
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error?.response?.data?.message);
+    throw new Error(error?.response?.data?.message);
+  }
+};

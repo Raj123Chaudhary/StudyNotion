@@ -7,6 +7,14 @@ const MyProfile = () => {
     (state) => state.profile,
   );
   console.log("user in my profile:", user);
+  const formatIndianDOBLong = (dob) => {
+    if (!dob) return "";
+    return new Date(dob).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
   const navigate = useNavigate();
   const location = useLocation();
   if (profileLoading) {
@@ -61,7 +69,9 @@ const MyProfile = () => {
           </button>
         </div>
         <div className="w-full mt-2">
-          <div className="">{user?.additionDetails?.about || "Add About"} </div>
+          <div className="">
+            {user?.additionalDetail?.about || "Add About"}{" "}
+          </div>
         </div>
       </div>
       {/* personal details section 3   */}
@@ -97,18 +107,21 @@ const MyProfile = () => {
           <div className="w-1/2">
             <h2 className="text-(--richblack-300)">Phone Number</h2>
             <p>
-              {user?.additionalDetails?.contactNumber || "Add Contact Number"}
+              {user?.additionalDetail?.contactNumber || "Add Contact Number"}
             </p>
           </div>
         </div>
         <div className="flex justify-between items-center mt-2 ">
           <div className="w-1/2">
             <h2 className="text-(--richblack-300)">Gender</h2>
-            <p>{user?.additionDetails?.gender || "Add gender"}</p>
+            <p>{user?.additionalDetail?.gender || "Add gender"}</p>
           </div>
           <div className="w-1/2">
             <h2 className="text-(--richblack-300)">Date Of Birth</h2>
-            <p>{user?.additionDetails?.dob || "Add DOB"}</p>
+            <p>
+              {formatIndianDOBLong(user?.additionalDetail?.dateOfBirth) ||
+                "Add DOB"}
+            </p>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ exports.updateProfile = async (req, res) => {
     const { firstName, lastName, dateOfBirth, about, contactNumber, gender } =
       req.body;
     //get userId
+    console.log(firstName, lastName, dateOfBirth, contactNumber, about);
     const userId = req.user.id;
     if (!userId) {
       return res
@@ -40,7 +41,10 @@ exports.updateProfile = async (req, res) => {
       ...(contactNumber && { contactNumber: contactNumber }),
     };
     // update profile or userAdditional details
-    await Profile.findByIdAndUpdate(profileId, updateProfile, { new: true });
+    const profile = await Profile.findByIdAndUpdate(profileId, updateProfile, {
+      new: true,
+    });
+    console.log(profile);
     const updatedUser = await User.findById(userId)
       .populate({ path: "additionalDetail" })
       .exec();
@@ -110,13 +114,11 @@ exports.updateProfileImage = async (req, res) => {
       { image: uploadImage?.secure_url },
       { new: true },
     );
-    return res
-      .status(200)
-      .json({
-        message: "Profile Image Update successfully",
-        success: true,
-        user: updateUser,
-      });
+    return res.status(200).json({
+      message: "Profile Image Update successfully",
+      success: true,
+      user: updateUser,
+    });
   } catch (error) {
     console.log("Error in update profile image : ", error);
     return res.status(500).json({ message: "Error in updating profile image" });

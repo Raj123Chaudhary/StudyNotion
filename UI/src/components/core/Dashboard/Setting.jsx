@@ -3,7 +3,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useRef } from "react";
-import { updateProfileImage } from "../../../services/operations/profileAPI";
+import {
+  updateProfile,
+  updateProfileImage,
+} from "../../../services/operations/profileAPI";
 import { setUser } from "../../../features/profileSlice/profileSlice";
 
 const Setting = () => {
@@ -12,19 +15,31 @@ const Setting = () => {
 
   const profileRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
-  const [updateProfile, setUpdateProfile] = useState({});
+  const [updateProfileInformation, setUpdateProfileInformation] = useState({});
   // console.log(profileImage);
 
   // Handle handleProfileInformationUpload
+  console.log(updateProfileInformation);
   const handleProfileInformation = (e) => {
     // console.log(e.target.value);
     const { value, name } = e.target;
-    console.log(value, name);
-    setUpdateProfile((prev) => ({
+
+    setUpdateProfileInformation((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+  // handle  handleProfileInformationUpload
+  const handleProfileInformationUpload = async () => {
+    console.log("i am in handleProleInformationUpload");
+    try {
+      const data = await updateProfile(updateProfileInformation);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //cancel upload
+  const cancelUpload = () => {};
 
   // handle profile Image Uplaod
 
@@ -196,10 +211,16 @@ const Setting = () => {
         </div>
         <div className="flex justify-end mt-5">
           <div className="flex gap-4 ">
-            <button className="px-5 transition-all duration-200 hover:scale-95  rounded-md cursor-pointer py-2.5 bg-(--richblack-700) ">
+            <button
+              onClick={cancelUpload}
+              className="px-5 transition-all duration-200 hover:scale-95  rounded-md cursor-pointer py-2.5 bg-(--richblack-700) "
+            >
               Cancel
             </button>
-            <button className="px-5 transition-all duration-200 hover:scale-95  rounded-md py-2.5 cursor-pointer bg-yellow-400">
+            <button
+              onClick={handleProfileInformationUpload}
+              className="px-5 transition-all duration-200 hover:scale-95  rounded-md py-2.5 cursor-pointer bg-yellow-400"
+            >
               Update
             </button>
           </div>
