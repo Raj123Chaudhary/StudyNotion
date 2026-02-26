@@ -34,6 +34,7 @@ const Setting = () => {
     console.log("i am in handleProleInformationUpload");
     try {
       const data = await updateProfile(updateProfileInformation);
+      dispatch(setUser(data?.updatedUser));
     } catch (error) {
       console.log(error);
     }

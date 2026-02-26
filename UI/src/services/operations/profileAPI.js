@@ -46,7 +46,7 @@ export const updateProfile = async (updateProfile) => {
       PROFILE_API.UPDATE_PROFILE,
       updateProfile,
     );
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.log(error?.response?.data?.message);
     throw new Error(error?.response?.data?.message);
