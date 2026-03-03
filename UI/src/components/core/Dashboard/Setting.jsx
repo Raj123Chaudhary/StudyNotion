@@ -36,7 +36,9 @@ const Setting = () => {
       const data = await updateProfile(updateProfileInformation);
       dispatch(setUser(data?.updatedUser));
     } catch (error) {
-      console.log(error);
+      // 🔹 Express-validator error
+
+      console.log(" Error in handleProfileInformationUpload :", error);
     }
   };
   //cancel upload

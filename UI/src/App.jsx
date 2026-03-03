@@ -17,6 +17,7 @@ import EnrolledCourse from "./components/core/Dashboard/EnrolledCourse";
 import StudentCart from "./components/core/Dashboard/StudentCart";
 
 import MyCourses from "./components/core/Dashboard/Instructor/MyCourses";
+import ContactUs from "./pages/ContactUs";
 import Setting from "./components/core/Dashboard/Setting";
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           }
         ></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<ContactUs />}></Route>
         <Route
           element={
             <PrivateRoute>

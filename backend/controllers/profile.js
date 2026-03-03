@@ -6,6 +6,7 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 // update profile
 exports.updateProfile = async (req, res) => {
+  console.log("i am in updateProfile controller");
   try {
     //  fetch data
     const { firstName, lastName, dateOfBirth, about, contactNumber, gender } =

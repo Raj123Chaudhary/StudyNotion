@@ -48,7 +48,15 @@ export const updateProfile = async (updateProfile) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error?.response?.data?.message);
-    throw new Error(error?.response?.data?.message);
+    // Axios backend error
+    console.log("i am catch block of update proflie");
+    // console.log(error);
+    if (error?.response?.data?.message) throw error?.response?.data?.message;
+
+    console.log(error);
+    throw "update fail";
+    // console.log(error?.response?.data?.message);
+
+    // Network / unknown error
   }
 };
